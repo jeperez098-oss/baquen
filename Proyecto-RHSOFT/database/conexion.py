@@ -2,10 +2,8 @@ import mysql.connector
 
 conexion = mysql.connector.connect(
     host="localhost",
-    port=3307,
-    user="root",       # <-- Asegúrate de que termine en 't' y NO en 'n'
-    password="",       # <-- Vacío, justo como me dijiste
-    database="rrhh_empresa"
+    user="root",            # Usuario por defecto en XAMPP
+    password="",            # Contraseña por defecto (vacía)
+    database="rrhh_empresa", # El nombre exacto de tu base de datos
+    port=3306               # ¡Cambiado a 3306!
 )
-
-print("Conexion exitosa")
