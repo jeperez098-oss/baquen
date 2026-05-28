@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Selección de Módulo - COBALSA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 flex items-center justify-center h-screen">
+    <div class="max-w-4xl w-full px-6 text-center">
+        <h2 class="text-3xl font-black text-slate-900 mb-2">Bienvenido al Ecosistema RHSOFT</h2>
+        <p class="text-slate-500 mb-10">Selecciona el espacio de trabajo al cual deseas ingresar según tus asignaciones</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% if session['rol'] == 'Administrador' %}
+            <a href="/menu-admin" class="bg-white p-8 rounded-2xl shadow-md border hover:border-indigo-500 hover:shadow-xl transition text-left group">
+                <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition">AD</div>
+                <h3 class="text-xl font-bold text-slate-800 mb-1">Módulo Administrativo</h3>
+                <p class="text-sm text-slate-500">Gestión completa de vacantes, asignación de cargos, nómina y altas de nuevos trabajadores al sistema central.</p>
+            </a>
+            {% else %}
+            <div class="bg-gray-200/50 p-8 rounded-2xl border border-dashed border-gray-300 text-left opacity-60 cursor-not-allowed">
+                <div class="w-12 h-12 bg-gray-300 text-gray-500 rounded-xl flex items-center justify-center font-bold text-xl mb-4">AD</div>
+                <h3 class="text-xl font-bold text-gray-400 mb-1">Módulo Administrativo</h3>
+                <p class="text-sm text-gray-400">Acceso restringido. Solo cuentas con perfil de Administrador tienen acceso a este gestor.</p>
+            </div>
+            {% endif %}
+
+            <a href="/menu-empleado" class="bg-white p-8 rounded-2xl shadow-md border hover:border-emerald-500 hover:shadow-xl transition text-left group">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">EP</div>
+                <h3 class="text-xl font-bold text-slate-800 mb-1">Portal del Empleado</h3>
+                <p class="text-sm text-slate-500">Control individual de jornadas de asistencia diaria, reportes de incidentes SST y visualización del perfil laboral.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

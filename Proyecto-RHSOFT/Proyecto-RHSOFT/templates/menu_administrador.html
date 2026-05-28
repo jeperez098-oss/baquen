@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Admin | RHSOFT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 flex flex-col min-h-screen">
+    <header class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shadow-lg">
+        <h1 class="text-xl font-bold tracking-wide">COBALSA - Panel Administrativo</h1>
+        <div class="flex items-center space-x-4">
+            <span class="text-sm text-slate-300">Sesión: <strong class="text-white">{{ session['nombre_completo'] }}</strong></span>
+            <a href="/seleccion" class="text-xs bg-slate-700 px-3 py-1.5 rounded-lg font-medium hover:bg-slate-600">Cambiar Módulo</a>
+            <a href="/logout" class="text-xs bg-red-600 px-3 py-1.5 rounded-lg font-bold hover:bg-red-700">Salir</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm h-fit">
+            <h2 class="text-lg font-bold text-slate-900 mb-4">Dar de Alta Empleado</h2>
+            <form action="/menu-admin" method="POST" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Documento Identidad</label>
+                    <input type="text" name="documento" required class="w-full border border-slate-300 p-2 rounded-xl text-sm">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nombres</label>
+                        <input type="text" name="nombres" required class="w-full border border-slate-300 p-2 rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Apellidos</label>
+                        <input type="text" name="apellidos" required class="w-full border border-slate-300 p-2 rounded-xl text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Correo Electrónico</label>
+                    <input type="email" name="email" required class="w-full border border-slate-300 p-2 rounded-xl text-sm">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Teléfono</label>
+                        <input type="text" name="telefono" class="w-full border border-slate-300 p-2 rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">F. Nacimiento</label>
+                        <input type="date" name="fecha_nacimiento" required class="w-full border border-slate-300 p-2 rounded-xl text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Cargo a Asignar</label>
+                    <select name="cargo" required class="w-full border border-slate-300 p-2 rounded-xl text-sm bg-white">
+                        {% for c in cargos %}
+                        <option value="{{ c.ID_Cargo }}">{{ c.Nombre_Cargo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Fecha de Ingreso</label>
+                    <input type="date" name="fecha_ingreso" required class="w-full border border-slate-300 p-2 rounded-xl text-sm">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition">Guardar Registro Técnico</button>
+            </form>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm lg:col-span-2">
+            <h2 class="text-lg font-bold text-slate-900 mb-4">Personal Activo Registrado</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 text-slate-500 text-xs font-bold uppercase border-b border-slate-200">
+                            <th class="p-3">Colaborador</th>
+                            <th class="p-3">Cargo Operativo</th>
+                            <th class="p-3">Departamento Relacionado</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm">
+                        {% for emp in empleados %}
+                        <tr class="hover:bg-slate-50/80">
+                            <td class="p-3 font-semibold text-slate-800">{{ emp.Nombres }} {{ emp.Apellidos }}</td>
+                            <td class="p-3 text-slate-600">{{ emp.Nombre_Cargo }}</td>
+                            <td class="p-3 text-slate-600">{{ emp.Nombre_Departamento }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Hoja de Vida Interna | COBALSA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 min-h-screen py-10">
+    <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+        <div class="bg-slate-900 text-white p-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-black">{{ perfil.Nombres }} {{ perfil.Apellidos }}</h1>
+                <p class="text-sm text-indigo-400 font-bold uppercase tracking-wider mt-0.5">{{ perfil.Nombre_Cargo }}</p>
+            </div>
+            <a href="/menu-empleado" class="bg-slate-800 hover:bg-slate-700 text-xs px-4 py-2 rounded-xl font-bold transition">Volver al Portal</a>
+        </div>
+
+        <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+            <div class="border-b border-slate-100 pb-3">
+                <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Cédula de Ciudadanía</span>
+                <p class="text-slate-800 font-medium mt-0.5">{{ perfil.Numero_Documento }}</p>
+            </div>
+            <div class="border-b border-slate-100 pb-3">
+                <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Fecha de Nacimiento</span>
+                <p class="text-slate-800 font-medium mt-0.5">{{ perfil.Fecha_Nacimiento }}</p>
+            </div>
+            <div class="border-b border-slate-100 pb-3">
+                <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Correo Electrónico Corp.</span>
+                <p class="text-slate-800 font-medium mt-0.5">{{ perfil.Email }}</p>
+            </div>
+            <div class="border-b border-slate-100 pb-3">
+                <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Teléfono de Contacto</span>
+                <p class="text-slate-800 font-medium mt-0.5">{{ perfil.Telefono if perfil.Telefono else 'No Registrado' }}</p>
+            </div>
+            <div class="border-b border-slate-100 pb-3">
+                <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Salario Mensual Pactado</span>
+                <p class="text-emerald-600 font-bold mt-0.5">${{ perfil.Salario_Base }} COP</p>
+            </div>
+            <div class="border-b border-slate-100 pb-3">
+                <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Fecha Oficial de Ingreso</span>
+                <p class="text-slate-800 font-medium mt-0.5">{{ perfil.Fecha_Ingreso }}</p>
+            </div>
+            <div class="md:col-span-2 bg-slate-50 p-4 rounded-2xl flex justify-around text-center border">
+                <div>
+                    <span class="block text-xs font-bold text-slate-400 uppercase">Inicio Jornada</span>
+                    <p class="text-slate-700 font-bold text-base mt-0.5">{{ perfil.Hora_Inicio_Jornada }}</p>
+                </div>
+                <div class="w-px bg-slate-200"></div>
+                <div>
+                    <span class="block text-xs font-bold text-slate-400 uppercase">Fin Jornada</span>
+                    <p class="text-slate-700 font-bold text-base mt-0.5">{{ perfil.Hora_Fin_Jornada }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

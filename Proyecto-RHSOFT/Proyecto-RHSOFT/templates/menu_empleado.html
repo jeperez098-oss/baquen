@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal Operativo | COBALSA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 flex flex-col min-h-screen">
+    <header class="bg-blue-900 text-white px-6 py-4 flex justify-between items-center shadow-md">
+        <h1 class="text-xl font-bold">Portal del Empleado</h1>
+        <div class="flex items-center space-x-4">
+            <span class="text-sm text-blue-200">Trabajador: <strong class="text-white">{{ session['nombre_completo'] }}</strong></span>
+            <a href="/perfil" class="text-xs bg-blue-800 px-3 py-1.5 rounded-lg hover:bg-blue-700">Mi Perfil</a>
+            <a href="/seleccion" class="text-xs bg-slate-700 px-3 py-1.5 rounded-lg hover:bg-slate-600">Módulos</a>
+            <a href="/logout" class="text-xs bg-red-600 px-3 py-1.5 rounded-lg font-bold hover:bg-red-700">Salir</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border space-y-4">
+            <h3 class="text-lg font-bold text-slate-800">Control de Jornada Diaria</h3>
+            <div class="grid grid-cols-2 gap-2">
+                <form action="/menu-empleado" method="POST">
+                    <input type="hidden" name="accion" value="asistencia">
+                    <input type="hidden" name="tipo_marcado" value="Entrada">
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm shadow transition">Marcar Entrada</button>
+                </form>
+                <form action="/menu-empleado" method="POST">
+                    <input type="hidden" name="accion" value="asistencia">
+                    <input type="hidden" name="tipo_marcado" value="Salida">
+                    <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl text-sm shadow transition">Marcar Salida</button>
+                </form>
+            </div>
+
+            <div class="border-t pt-4">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Marcaciones Recientes</h4>
+                <div class="space-y-2 max-h-40 overflow-y-auto text-xs">
+                    {% for asis in asistencia %}
+                    <div class="bg-slate-50 p-2 rounded-lg flex justify-between items-center border">
+                        <div>
+                            <p class="font-bold text-slate-700">{{ asis.Fecha }}</p>
+                            <p class="text-slate-500">E: {{ asis.Hora_Entrada }} | S: {{ asis.Hora_Salida if asis.Hora_Salida else '--:--' }}</p>
+                        </div>
+                        <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-md">{{ asis.Estado_Asistencia }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border lg:col-span-2">
+            <h3 class="text-lg font-bold text-slate-800 mb-4">Reportar Incidente / Accidente Laboral (SST)</h3>
+            <form action="/menu-empleado" method="POST" class="space-y-4">
+                <input type="hidden" name="accion" value="sst">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Clasificación del Suceso</label>
+                    <select name="tipo_accidente" required class="w-full border border-slate-300 p-2 rounded-xl text-sm bg-white">
+                        <option value="Caída">Caída / Resbalón</option>
+                        <option value="Corte">Corte con Herramienta</option>
+                        <option value="Golpe">Golpe contra Maquinaria u Objeto</option>
+                        <option value="Quemadura">Quemadura / Salpicadura Térmica</option>
+                        <option value="Intoxicación">Contacto / Inhalación Química</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Descripción de lo Sucedido</label>
+                    <textarea name="descripcion" rows="3" required placeholder="Describe detalladamente cómo ocurrió la novedad..." class="w-full border border-slate-300 p-2 rounded-xl text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Acción Correctiva Inmediata Realizada</label>
+                    <input type="text" name="accion_inmediata" required placeholder="Ej: Aplicación de primeros auxilios, traslado a urgencias..." class="w-full border border-slate-300 p-2 rounded-xl text-sm">
+                </div>
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow transition">Enviar Reporte SST de Emergencia</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
